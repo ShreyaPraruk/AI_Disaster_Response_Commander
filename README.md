@@ -219,15 +219,13 @@ http://127.0.0.1:5000
 
 <img width="1894" height="951" alt="image" src="https://github.com/user-attachments/assets/8253c3c5-cc57-45f7-952a-63ab437aba0c" />
 
-### Incident History
-
-*(<img width="1807" height="441" alt="image" src="https://github.com/user-attachments/assets/8801a070-a155-4b95-9e83-2d1535bce1b2" />
-)*
-
-
 ### AI Decision Panel
+
 <img width="764" height="645" alt="image" src="https://github.com/user-attachments/assets/155c7ef3-59f8-412d-85f8-0164b3785a1a" />
 
+### Incident History
+
+<img width="1807" height="441" alt="image" src="https://github.com/user-attachments/assets/8801a070-a155-4b95-9e83-2d1535bce1b2" />
 ---
 
 # 🚀 Future Enhancements
