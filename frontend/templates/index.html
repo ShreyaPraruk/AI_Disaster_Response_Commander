@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Disaster Response Commander</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link rel="stylesheet"
+          href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+
+</head>
+
+<body>
+
+<nav>
+
+    <h2>🚨 AI Disaster Response Commander</h2>
+
+</nav>
+
+<!-- ================= Dashboard ================= -->
+
+<div class="dashboard">
+
+    <div class="card">
+
+        <h3>🚨 Total Incidents</h3>
+
+        <h1 id="totalIncidents">0</h1>
+
+    </div>
+
+    <div class="card">
+
+        <h3>🔥 Fire</h3>
+
+        <h1 id="fireCount">0</h1>
+
+    </div>
+
+    <div class="card">
+
+        <h3>🌊 Flood</h3>
+
+        <h1 id="floodCount">0</h1>
+
+    </div>
+
+    <div class="card">
+
+        <h3>🌍 Earthquake</h3>
+
+        <h1 id="earthquakeCount">0</h1>
+
+    </div>
+
+</div>
+
+<!-- ================= Map ================= -->
+
+<div class="map">
+
+    <h2>🌍 Live Disaster Map</h2>
+
+    <div style="margin-bottom:20px;">
+
+        <label>
+
+            <strong>Select Disaster Type :</strong>
+
+        </label>
+
+        <select id="disasterType">
+
+            <option value="Fire">🔥 Fire</option>
+
+            <option value="Flood">🌊 Flood</option>
+
+            <option value="Earthquake">🌍 Earthquake</option>
+
+        </select>
+
+    </div>
+
+    <div id="map"></div>
+
+</div>
+
+<!-- ================= AI PANEL ================= -->
+
+<div class="ai-panel">
+
+    <h2>🤖 AI Decision Engine</h2>
+
+    <p><strong>🚨 Disaster :</strong> <span id="selectedDisaster">-</span></p>
+
+    <p><strong>⚠️ Severity :</strong> <span id="severity">-</span></p>
+
+    <p><strong>🎯 Confidence :</strong> <span id="confidence">-</span></p>
+
+    <p><strong>🚑 Selected Ambulance :</strong> <span id="nearestAmbulance">-</span></p>
+
+    <p><strong>🏥 Selected Hospital :</strong> <span id="nearestHospital">-</span></p>
+
+    <p><strong>📏 Distance :</strong> <span id="distance">-</span></p>
+
+    <p><strong>⏱ ETA :</strong> <span id="eta">-</span></p>
+
+    <p><strong>🚑 Ambulances Required :</strong> <span id="ambulanceRequired">-</span></p>
+
+    <p><strong>👨‍🚒 Rescue Teams :</strong> <span id="teamRequired">-</span></p>
+
+    <p><strong>Status :</strong> <span id="status">Waiting for disaster...</span></p>
+
+    <hr>
+
+    <h3>🧠 AI Reasoning</h3>
+
+    <ul id="reasonList"></ul>
+
+</div>
+
+<!-- ================= History ================= -->
+
+<div class="history-panel">
+
+    <h2>📋 Incident History</h2>
+
+    <table id="historyTable">
+
+        <thead>
+
+            <tr>
+
+                <th>ID</th>
+
+                <th>Disaster</th>
+
+                <th>Ambulance</th>
+
+                <th>Hospital</th>
+
+                <th>ETA</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+        </tbody>
+
+    </table>
+
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+
+</html>
