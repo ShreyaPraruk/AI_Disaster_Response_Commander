@@ -46,7 +46,7 @@ L.marker([12.9716, 77.5946], {
 // ==========================
 // Dashboard Elements
 // ==========================
-const disasterCount = document.getElementById("disasterCount");
+const disasterCount = document.getElementById("totalIncidents");
 const disasterType = document.getElementById("disasterType");
 
 const selectedDisaster = document.getElementById("selectedDisaster");
@@ -331,6 +331,8 @@ result.reason.forEach(reason => {
 
         console.log("AI Decision");
         console.log(result);
+        loadHistory();
+loadStatistics();
 
     })
 
@@ -347,141 +349,99 @@ result.reason.forEach(reason => {
 // Load Incident History
 // =====================================
 
-function loadHistory(){
+function loadHistory() {
 
     fetch("/api/history")
+        .then(response => {
 
-    .then(response => response.json())
+            if (!response.ok) {
+                throw new Error("Server Error");
+            }
 
-    .then(data =>{
+            return response.json();
 
-        const tableBody =
-        document.querySelector("#historyTable tbody");
+        })
+        .then(data => {
 
-        tableBody.innerHTML="";
+            const tableBody =
+                document.querySelector("#historyTable tbody");
 
-        data.forEach(item=>{
+            tableBody.innerHTML = "";
 
-            const row=`
+            data.forEach(item => {
 
-            <tr>
+                const row = `
+                    <tr>
+                        <td>${item.id}</td>
+                        <td>${item.disaster}</td>
+                        <td>${item.ambulance}</td>
+                        <td>${item.hospital}</td>
+                        <td>${item.eta} min</td>
+                    </tr>
+                `;
 
-                <td>${item.id}</td>
+                tableBody.innerHTML += row;
 
-                <td>${item.disaster}</td>
+            });
 
-                <td>${item.ambulance}</td>
+        })
+        .catch(error => {
 
-                <td>${item.hospital}</td>
-
-                <td>${item.eta} min</td>
-
-            </tr>
-
-            `;
-
-            tableBody.innerHTML += row;
+            console.error("History Error:", error);
 
         });
 
-    });
-
 }
-// =====================================
-// Auto Refresh History
-// =====================================
 
-// Load history when page opens
-loadHistory();
-
-// Reload history every 5 seconds
-setInterval(loadHistory, 5000);
-
-// =====================================
-// Refresh History After New Incident
-// =====================================
-
-// Find this line inside your map click event:
-//
-// console.log(result);
-//
-// Immediately AFTER that line, add:
-
-loadHistory();// =====================================
-// Auto Refresh History
-// =====================================
-
-// Load history when page opens
-loadHistory();
-
-// Reload history every 5 seconds
-setInterval(loadHistory, 5000);
-
-// =====================================
-// Refresh History After New Incident
-// =====================================
-
-// Find this line inside your map click event:
-//
-// console.log(result);
-//
-// Immediately AFTER that line, add:
-
-loadHistory();
 // =====================================
 // Dashboard Statistics
 // =====================================
 
-function loadStatistics(){
+function loadStatistics() {
 
     fetch("/api/statistics")
+        .then(response => {
 
-    .then(response => response.json())
+            if (!response.ok) {
+                throw new Error("Server Error");
+            }
 
-    .then(data =>{
+            return response.json();
 
-        document.getElementById("totalIncidents").innerText =
-        data.total_incidents;
+        })
+        .then(data => {
 
-        document.getElementById("fireCount").innerText =
-        data.disaster_statistics.Fire || 0;
+            document.getElementById("totalIncidents").innerText =
+                data.total_incidents;
 
-        document.getElementById("floodCount").innerText =
-        data.disaster_statistics.Flood || 0;
+            document.getElementById("fireCount").innerText =
+                data.disaster_statistics.Fire || 0;
 
-        document.getElementById("earthquakeCount").innerText =
-        data.disaster_statistics.Earthquake || 0;
+            document.getElementById("floodCount").innerText =
+                data.disaster_statistics.Flood || 0;
 
-    })
+            document.getElementById("earthquakeCount").innerText =
+                data.disaster_statistics.Earthquake || 0;
 
-    .catch(error=>{
+        })
+        .catch(error => {
 
-        console.log(error);
+            console.error("Statistics Error:", error);
 
-    });
+        });
 
 }
+
 // =====================================
-// Auto Refresh Statistics
+// Initial Load
 // =====================================
 
-// Load statistics when page opens
+loadHistory();
 loadStatistics();
 
-// Refresh statistics every 5 seconds
+// =====================================
+// Auto Refresh
+// =====================================
+
+setInterval(loadHistory, 5000);
 setInterval(loadStatistics, 5000);
-
-// =====================================
-// Refresh after new incident
-// =====================================
-
-// Inside your fetch("/api/dispatch")
-// .then(result => { ... })
-
-// After this line:
-//
-// loadHistory();
-//
-// add ONE MORE line:
-
-loadStatistics();

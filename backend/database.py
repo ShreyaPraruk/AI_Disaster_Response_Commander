@@ -10,13 +10,16 @@ class DisasterDatabase:
             check_same_thread=False
         )
 
-        self.cursor = self.connection.cursor()
-
         self.create_tables()
 
+    # ==========================================
+    # Create Tables
+    # ==========================================
     def create_tables(self):
 
-        self.cursor.execute("""
+        cursor = self.connection.cursor()
+
+        cursor.execute("""
 
         CREATE TABLE IF NOT EXISTS incidents(
 
@@ -44,6 +47,9 @@ class DisasterDatabase:
 
         self.connection.commit()
 
+    # ==========================================
+    # Save Incident
+    # ==========================================
     def save_incident(
 
         self,
@@ -64,7 +70,9 @@ class DisasterDatabase:
 
     ):
 
-        self.cursor.execute("""
+        cursor = self.connection.cursor()
+
+        cursor.execute("""
 
         INSERT INTO incidents(
 
@@ -110,9 +118,14 @@ class DisasterDatabase:
 
         self.connection.commit()
 
+    # ==========================================
+    # Get All Incidents
+    # ==========================================
     def get_all_incidents(self):
 
-        self.cursor.execute("""
+        cursor = self.connection.cursor()
+
+        cursor.execute("""
 
         SELECT *
 
@@ -122,7 +135,7 @@ class DisasterDatabase:
 
         """)
 
-        rows = self.cursor.fetchall()
+        rows = cursor.fetchall()
 
         data = []
 
@@ -152,9 +165,14 @@ class DisasterDatabase:
 
         return data
 
+    # ==========================================
+    # Total Incidents
+    # ==========================================
     def total_incidents(self):
 
-        self.cursor.execute("""
+        cursor = self.connection.cursor()
+
+        cursor.execute("""
 
         SELECT COUNT(*)
 
@@ -162,11 +180,16 @@ class DisasterDatabase:
 
         """)
 
-        return self.cursor.fetchone()[0]
+        return cursor.fetchone()[0]
 
+    # ==========================================
+    # Disaster Statistics
+    # ==========================================
     def disaster_statistics(self):
 
-        self.cursor.execute("""
+        cursor = self.connection.cursor()
+
+        cursor.execute("""
 
         SELECT disaster,
 
@@ -178,7 +201,7 @@ class DisasterDatabase:
 
         """)
 
-        rows = self.cursor.fetchall()
+        rows = cursor.fetchall()
 
         stats = {}
 
